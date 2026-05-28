@@ -752,11 +752,11 @@ function Projects() {
               stack={["Laravel","MySQL","Bootstrap","REST API"]}
               gradient="linear-gradient(135deg,#6c3fff,#ff5eaa)"
               demoUrl="#" />
-            <ProjectCard title="Client Complaint App" year="2022"
-              description="A web-based complaint management system for Tunisie Télécom clients. Allows submission, tracking, and resolution of service complaints with an admin dashboard."
-              stack={["PHP","HTML5","CSS3","JavaScript"]}
+            <ProjectCard title="Portfolio" year="2024"
+              description="A modern, responsive portfolio website showcasing projects and skills. Built with clean HTML structure, custom CSS styling, and interactive JavaScript features."
+              stack={["HTML5","CSS3","JavaScript"]}
               gradient="linear-gradient(135deg,#00c2ff,#06b6d4)"
-              demoUrl="#" />
+              demoUrl="https://portfolio-wassim-eta.vercel.app" />
             <ProjectCard title="Dhayoufi Store" year="2024"
               description="A modern e-commerce website with product catalog, shopping cart, and checkout flow. Built with responsive design and smooth user experience for online shopping."
               stack={["React","Next.js","Tailwind CSS","Vercel"]}
