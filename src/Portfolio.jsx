@@ -715,6 +715,11 @@ function Projects() {
               stack={["PHP","HTML5","CSS3","JavaScript"]}
               gradient="linear-gradient(135deg,#00c2ff,#06b6d4)"
               demoUrl="#" />
+            <ProjectCard title="Dhayoufi Store" year="2024"
+              description="A modern e-commerce website with product catalog, shopping cart, and checkout flow. Built with responsive design and smooth user experience for online shopping."
+              stack={["React","Next.js","Tailwind CSS","Vercel"]}
+              gradient="linear-gradient(135deg,#f59e0b,#ef4444)"
+              demoUrl="https://dhayoufi-store.vercel.app" />
           </motion.div>
         </motion.div>
       </div>
