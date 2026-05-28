@@ -134,8 +134,8 @@ function SectionTitle({ children, gradient=false }) {
   return (
     <div ref={ref} style={{position:"relative",display:"inline-block",marginBottom:"56px"}}>
       <motion.h2 initial={{opacity:0,y:30}} animate={inView?{opacity:1,y:0}:{}} transition={{duration:0.6}}
-        style={{ fontFamily:"Syne,sans-serif", fontSize:"clamp(2rem,5vw,3.5rem)", fontWeight:800,
-          lineHeight:1.1, ...(gradient ? GRAD_TEXT : {color:"var(--text)"}) }}>
+        style={{ fontFamily:"Syne,sans-serif", fontSize:"clamp(1.7rem,6vw,3.5rem)", fontWeight:800,
+          lineHeight:1.15, ...(gradient ? GRAD_TEXT : {color:"var(--text)"}) }}>
         {children}
       </motion.h2>
       <motion.div initial={{scaleX:0}} animate={inView?{scaleX:1}:{}}
@@ -153,17 +153,17 @@ function StatCard({ number, suffix, label, idx }) {
   const count = useCountUp(number, inView);
   return (
     <motion.div ref={ref} variants={scaleIn}
-      whileHover={{y:-6, boxShadow:"0 20px 60px rgba(108,63,255,0.22)"}}
+      whileHover={{y:-4, boxShadow:"0 20px 60px rgba(108,63,255,0.22)"}}
       transition={{type:"spring",stiffness:280}}
       style={{
         background:"#fff", border:"1.5px solid rgba(108,63,255,0.1)", borderRadius:"20px",
-        padding:"32px 28px", flex:1, minWidth:"140px", boxShadow:"0 8px 40px rgba(108,63,255,0.10)",
+        padding:"28px 22px", flex:"1 1 120px", minWidth:"120px", boxShadow:"0 8px 40px rgba(108,63,255,0.10)",
         position:"relative", overflow:"hidden",
       }}>
       <div style={{position:"absolute",top:0,left:0,right:0,height:"3px",background:GRADS[idx%3]}} />
-      <div style={{ fontFamily:"Syne,sans-serif", fontSize:"clamp(2.5rem,6vw,3.5rem)", fontWeight:800,
+      <div style={{ fontFamily:"Syne,sans-serif", fontSize:"clamp(2rem,6vw,3rem)", fontWeight:800,
         background:GRADS[idx%3], WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent",
-        backgroundClip:"text", lineHeight:1, marginBottom:"8px" }}>
+        backgroundClip:"text", lineHeight:1, marginBottom:"6px" }}>
         {count}{suffix}
       </div>
       <div style={{ fontFamily:"DM Mono,monospace", fontSize:"11px", letterSpacing:"0.12em",
@@ -254,23 +254,34 @@ function TimelineCard({ role, period, company, location, points, side, idx=0 }) 
   const ref = useRef(null);
   const inView = useInView(ref,{once:true,margin:"-60px"});
   const v = side==="left" ? fadeLeft : fadeRight;
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 860);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
   return (
     <motion.div ref={ref} variants={v} initial="hidden" animate={inView?"visible":"hidden"}
       whileHover={{y:-4, boxShadow:"0 20px 60px rgba(108,63,255,0.18)"}}
       transition={{type:"spring",stiffness:260}}
       style={{
         background:"#fff", border:"1.5px solid rgba(108,63,255,0.1)", borderRadius:"20px",
-        padding:"32px", flex:1, maxWidth:"480px", position:"relative",
+        padding:isMobile ? "24px 20px" : "32px", flex:1, maxWidth:"480px", width:"100%", position:"relative",
         boxShadow:"0 8px 40px rgba(108,63,255,0.08)", overflow:"hidden",
+        marginLeft:isMobile ? "0" : undefined,
+        marginRight:isMobile ? "0" : undefined,
       }}>
       <div style={{position:"absolute",top:0,left:0,right:0,height:"3px",background:GRADS[idx%2]}} />
-      <div style={{
-        position:"absolute", top:"38px",
-        [side==="left"?"right":"left"]:"-9px",
-        width:"18px", height:"18px", borderRadius:"50%",
-        background:GRADS[idx%2], border:"3px solid #f7f5ff",
-        boxShadow:`0 0 14px ${["rgba(108,63,255,0.5)","rgba(255,94,170,0.5)"][idx%2]}`,
-      }} />
+      {!isMobile && (
+        <div style={{
+          position:"absolute", top:"38px",
+          [side==="left"?"right":"left"]:"-9px",
+          width:"18px", height:"18px", borderRadius:"50%",
+          background:GRADS[idx%2], border:"3px solid #f7f5ff",
+          boxShadow:`0 0 14px ${["rgba(108,63,255,0.5)","rgba(255,94,170,0.5)"][idx%2]}`,
+        }} />
+      )}
       <p style={{fontFamily:"DM Mono,monospace",fontSize:"11px",letterSpacing:"0.2em",
         background:GRADS[idx%2], WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",
         backgroundClip:"text", marginBottom:"8px",textTransform:"uppercase",display:"inline-block"}}>
@@ -296,14 +307,21 @@ function TimelineCard({ role, period, company, location, points, side, idx=0 }) 
 /* ── PROJECT CARD ──────────────────────────── */
 function ProjectCard({ title, year, description, stack, gradient, demoUrl }) {
   const [hov, setHov] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
   return (
     <motion.div variants={fadeUp}
-      whileHover={{y:-10,scale:1.02,rotateY:4}}
+      whileHover={!isMobile ? {y:-10,scale:1.02,rotateY:4} : {}}
       onHoverStart={()=>setHov(true)} onHoverEnd={()=>setHov(false)}
       transition={{type:"spring",stiffness:240,damping:18}}
       style={{
         background:"#fff", border:"1.5px solid rgba(108,63,255,0.1)", borderRadius:"24px",
-        padding:"40px 36px", flex:1, minWidth:"280px", maxWidth:"520px",
+        padding:isMobile ? "28px 22px" : "40px 36px", flex:"1 1 300px", minWidth:"280px", maxWidth:"520px",
         position:"relative", overflow:"hidden", transformPerspective:900,
         cursor:"default",
         boxShadow: hov ? "0 24px 64px rgba(108,63,255,0.22)" : "0 8px 40px rgba(108,63,255,0.1)",
@@ -317,10 +335,10 @@ function ProjectCard({ title, year, description, stack, gradient, demoUrl }) {
         <p style={{fontFamily:"DM Mono,monospace",fontSize:"11px",letterSpacing:"0.2em",
           background:gradient,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",
           backgroundClip:"text",marginBottom:"12px",textTransform:"uppercase",display:"inline-block"}}>{year}</p>
-        <h3 style={{fontFamily:"Syne,sans-serif",fontSize:"1.5rem",fontWeight:800,
-          color:"var(--text)",marginBottom:"14px",lineHeight:1.2}}>{title}</h3>
-        <p style={{fontFamily:"DM Mono,monospace",fontSize:"13px",color:"var(--text-muted)",
-          lineHeight:1.7,marginBottom:"24px"}}>{description}</p>
+        <h3 style={{fontFamily:"Syne,sans-serif",fontSize:"clamp(1.2rem,4vw,1.5rem)",fontWeight:800,
+          color:"var(--text)",marginBottom:"12px",lineHeight:1.25}}>{title}</h3>
+        <p style={{fontFamily:"DM Mono,monospace",fontSize:"clamp(12px,3vw,13px)",color:"var(--text-muted)",
+          lineHeight:1.7,marginBottom:"20px"}}>{description}</p>
         <div style={{display:"flex",flexWrap:"wrap",gap:"8px",marginBottom:"24px"}}>
           {stack.map((s,i)=>(
             <span key={s} style={{
@@ -384,13 +402,20 @@ function LanguageBar({ lang, level, width, idx=0 }) {
 
 /* ── EDU CARD ──────────────────────────────── */
 function EduCard({ degree, school, period, detail, idx=0 }) {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
   return (
     <motion.div variants={fadeUp}
-      whileHover={{y:-6,boxShadow:"0 20px 60px rgba(108,63,255,0.18)"}}
+      whileHover={!isMobile ? {y:-6,boxShadow:"0 20px 60px rgba(108,63,255,0.18)"} : {}}
       transition={{type:"spring",stiffness:260}}
       style={{
         background:"#fff", border:"1.5px solid rgba(108,63,255,0.1)", borderRadius:"20px",
-        padding:"36px 32px", flex:1, minWidth:"260px", position:"relative",
+        padding:isMobile ? "26px 22px" : "36px 32px", flex:"1 1 280px", minWidth:"260px", position:"relative",
         overflow:"hidden", boxShadow:"0 8px 40px rgba(108,63,255,0.08)",
       }}>
       <div style={{position:"absolute",top:0,left:0,right:0,height:"3px",background:GRADS[idx%2]}} />
@@ -399,9 +424,9 @@ function EduCard({ degree, school, period, detail, idx=0 }) {
       <p style={{fontFamily:"DM Mono,monospace",fontSize:"11px",letterSpacing:"0.2em",
         background:GRADS[idx%2],WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",
         backgroundClip:"text",marginBottom:"12px",textTransform:"uppercase",display:"inline-block"}}>{period}</p>
-      <h3 style={{fontFamily:"Syne,sans-serif",fontSize:"1.15rem",fontWeight:700,
+      <h3 style={{fontFamily:"Syne,sans-serif",fontSize:"clamp(1rem,3vw,1.15rem)",fontWeight:700,
         color:"var(--text)",lineHeight:1.3,marginBottom:"10px"}}>{degree}</h3>
-      <p style={{fontFamily:"DM Mono,monospace",fontSize:"13px",color:"var(--text-muted)",lineHeight:1.6}}>{school}</p>
+      <p style={{fontFamily:"DM Mono,monospace",fontSize:"clamp(12px,2.5vw,13px)",color:"var(--text-muted)",lineHeight:1.6}}>{school}</p>
       {detail&&<p style={{fontFamily:"DM Mono,monospace",fontSize:"12px",marginTop:"8px",
         background:GRADS[idx%2],WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",
         backgroundClip:"text",display:"inline-block"}}>{detail}</p>}
@@ -418,15 +443,15 @@ function Nav() {
   return (
     <motion.nav style={{position:"fixed",top:0,left:0,right:0,zIndex:100,
       display:"flex",justifyContent:"space-between",alignItems:"center",
-      padding:"16px 48px",backdropFilter:"blur(16px)"}}>
+      padding:"14px clamp(16px,4vw,48px)",backdropFilter:"blur(16px)"}}>
       <motion.div style={{opacity:bgOpacity,position:"absolute",inset:0,zIndex:-1,
         background:"rgba(247,245,255,0.93)",
         borderBottom:"1px solid rgba(108,63,255,0.1)",
         boxShadow:"0 2px 20px rgba(108,63,255,0.06)"}} />
       <motion.a href="#hero" whileHover={{scale:1.05}} style={{
-        fontFamily:"Syne,sans-serif",fontWeight:800,fontSize:"1.2rem",
+        fontFamily:"Syne,sans-serif",fontWeight:800,fontSize:"clamp(1.1rem,3vw,1.2rem)",
         ...GRAD_TEXT, textDecoration:"none",zIndex:1}}>Portfolio</motion.a>
-      <div style={{display:"flex",gap:"28px",alignItems:"center",zIndex:1}}>
+      <div style={{display:"flex",gap:"28px",alignItems:"center",zIndex:1}} className="desktop-nav">
         {links.map(l=>(
           <motion.a key={l} href={`#${l.toLowerCase()}`} onClick={()=>setActive(l)}
             whileHover={{color:"#6c3fff"}}
@@ -497,11 +522,11 @@ function Hero() {
         </motion.div>
 
         {/* Name */}
-        <motion.h1 variants={{hidden:{},visible:{transition:{staggerChildren:0.15}}}}
+        <motion.h1 variants={{hidden:{},visible:{transition:{staggerChildren:0.12}}}}
           initial="hidden" animate="visible" aria-label="Mohamed Amine Dhif"
           style={{fontFamily:"Syne,sans-serif",fontWeight:800,
-            fontSize:"clamp(3rem,10vw,9rem)",lineHeight:1.0,marginBottom:"20px",
-            display:"flex",flexWrap:"wrap",justifyContent:"center",gap:"0 0.22em"}}>
+            fontSize:"clamp(2.2rem,10vw,9rem)",lineHeight:1.05,marginBottom:"20px",
+            display:"flex",flexWrap:"wrap",justifyContent:"center",gap:"0 0.18em"}}>
           {words.map((w,wi)=>(
             <motion.span key={wi} variants={{
               hidden:{opacity:0,y:80,rotateX:-35},
@@ -536,19 +561,19 @@ function Hero() {
         {/* Buttons */}
         <motion.div initial={{opacity:0,y:20}} animate={{opacity:1,y:0}}
           transition={{duration:0.7,delay:1.15}}
-          style={{display:"flex",gap:"16px",justifyContent:"center",flexWrap:"wrap",marginBottom:"48px"}}>
+          style={{display:"flex",gap:"12px",justifyContent:"center",flexWrap:"wrap",marginBottom:"44px"}}>
           <MagneticButton href="#projects" variant="filled" icon="→">View Projects</MagneticButton>
           <MagneticButton href="#contact" variant="outline" icon="✉">Get In Touch</MagneticButton>
         </motion.div>
 
         {/* Floating tech pills */}
         <motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay:1.6}}
-          style={{display:"flex",gap:"12px",justifyContent:"center",flexWrap:"wrap"}}>
+          style={{display:"flex",gap:"10px",justifyContent:"center",flexWrap:"wrap"}}>
           {["React","Laravel","MySQL","PHP","Next.js"].map((t,i)=>(
             <motion.span key={t}
-              animate={{y:[0,-10,0]}}
+              animate={{y:[0,-8,0]}}
               transition={{duration:3+i*0.6,repeat:Infinity,delay:i*0.45,ease:"easeInOut"}}
-              style={{fontFamily:"DM Mono,monospace",fontSize:"12px",padding:"7px 18px",
+              style={{fontFamily:"DM Mono,monospace",fontSize:"clamp(11px,2.5vw,12px)",padding:"6px 14px",
                 borderRadius:"50px",background:"rgba(255,255,255,0.85)",
                 border:"1.5px solid rgba(108,63,255,0.12)",color:"var(--text-muted)",
                 boxShadow:"0 4px 16px rgba(108,63,255,0.08)",backdropFilter:"blur(8px)"}}>
@@ -581,14 +606,16 @@ function About() {
   const ref = useRef(null);
   const inView = useInView(ref,{once:true,margin:"-80px"});
   return (
-    <section id="about" style={{padding:"120px 48px",background:"#fff"}}>
+    <section id="about" style={{padding:"clamp(80px,10vw,120px) clamp(20px,5vw,48px)",background:"#fff"}}>
       <div style={{maxWidth:"1200px",margin:"0 auto"}}>
         <motion.div ref={ref} variants={stagger} initial="hidden" animate={inView?"visible":"hidden"}>
           <SectionLabel text="Who I Am" />
-          <div style={{display:"flex",gap:"80px",alignItems:"flex-start",flexWrap:"wrap"}}>
-            <motion.div variants={fadeLeft} style={{flex:"1 1 320px"}}>
-              <SectionTitle gradient>About Me</SectionTitle>
-              <p style={{fontFamily:"DM Mono,monospace",fontSize:"14px",lineHeight:"1.9",
+          <div style={{display:"flex",gap:"clamp(32px,5vw,80px)",alignItems:"flex-start",flexWrap:"wrap"}}>
+            <motion.div variants={fadeLeft} style={{flex:"1 1 280px"}}>
+              <div style={{marginBottom:"40px"}}>
+                <SectionTitle gradient>About Me</SectionTitle>
+              </div>
+              <p style={{fontFamily:"DM Mono,monospace",fontSize:"clamp(13px,2.5vw,14px)",lineHeight:"1.9",
                 color:"var(--text-muted)",maxWidth:"520px"}}>
                 I'm a Full-Stack Web Developer based in Nabeul, Tunisia — passionate
                 about crafting clean, performant, and user-focused web applications.
@@ -599,7 +626,7 @@ function About() {
               </p>
             </motion.div>
             <motion.div variants={stagger}
-              style={{flex:"1 1 340px",display:"flex",gap:"16px",flexWrap:"wrap"}}>
+              style={{flex:"1 1 300px",display:"flex",gap:"10px",flexWrap:"wrap"}}>
               <StatCard number={2} suffix="+" label="Years Experience" idx={0} />
               <StatCard number={5} suffix="+" label="Projects Delivered" idx={1} />
               <StatCard number={3} suffix=""  label="Languages Spoken"  idx={2} />
@@ -623,7 +650,7 @@ function Skills() {
   const ref = useRef(null);
   const inView = useInView(ref,{once:true,margin:"-60px"});
   return (
-    <section id="skills" style={{padding:"120px 48px",background:"var(--bg)",position:"relative",overflow:"hidden"}}>
+    <section id="skills" style={{padding:"clamp(80px,10vw,120px) clamp(20px,5vw,48px)",background:"var(--bg)",position:"relative",overflow:"hidden"}}>
       <div style={{position:"absolute",top:"-200px",right:"-150px",width:"500px",height:"500px",
         borderRadius:"50%",background:"radial-gradient(circle,rgba(108,63,255,0.07),transparent 70%)",pointerEvents:"none"}} />
       <div style={{maxWidth:"1200px",margin:"0 auto"}}>
@@ -657,17 +684,28 @@ function Skills() {
 function Experience() {
   const ref = useRef(null);
   const inView = useInView(ref,{once:true,margin:"-60px"});
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 860);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
   return (
-    <section id="experience" style={{padding:"120px 48px",background:"#fff"}}>
+    <section id="experience" style={{padding:"clamp(80px,10vw,120px) clamp(20px,5vw,48px)",background:"#fff"}}>
       <div style={{maxWidth:"1200px",margin:"0 auto"}}>
         <motion.div ref={ref} variants={stagger} initial="hidden" animate={inView?"visible":"hidden"}>
           <SectionLabel text="Work History" />
           <SectionTitle>Experience</SectionTitle>
         </motion.div>
         <div style={{position:"relative",paddingTop:"20px"}}>
-          <TimelineLine />
-          <div style={{display:"flex",flexDirection:"column",gap:"60px"}}>
-            <div style={{display:"flex",justifyContent:"flex-start",paddingRight:"calc(50% + 40px)"}}>
+          {!isMobile && <TimelineLine />}
+          <div style={{display:"flex",flexDirection:"column",gap:isMobile ? "32px" : "60px"}}>
+            <div style={{
+              display:"flex",justifyContent:isMobile ? "center" : "flex-start",
+              paddingRight:isMobile ? "0" : "calc(50% + 40px)",
+              paddingLeft:isMobile ? "0" : undefined,
+            }}>
               <TimelineCard side="left" idx={0} period="2024"
                 role="Freelance Full-Stack Developer"
                 company="Auto-entrepreneur" location="Tunis, Tunisia"
@@ -677,7 +715,11 @@ function Experience() {
                   "Responsive Bootstrap frontend with dynamic UI",
                 ]} />
             </div>
-            <div style={{display:"flex",justifyContent:"flex-end",paddingLeft:"calc(50% + 40px)"}}>
+            <div style={{
+              display:"flex",justifyContent:isMobile ? "center" : "flex-end",
+              paddingLeft:isMobile ? "0" : "calc(50% + 40px)",
+              paddingRight:isMobile ? "0" : undefined,
+            }}>
               <TimelineCard side="right" idx={1} period="2022"
                 role="Web Developer Intern"
                 company="Tunisie Télécom" location="Nabeul, Tunisia"
@@ -699,12 +741,12 @@ function Projects() {
   const ref = useRef(null);
   const inView = useInView(ref,{once:true,margin:"-60px"});
   return (
-    <section id="projects" style={{padding:"120px 48px",background:"var(--bg)"}}>
+    <section id="projects" style={{padding:"clamp(80px,10vw,120px) clamp(20px,5vw,48px)",background:"var(--bg)"}}>
       <div style={{maxWidth:"1200px",margin:"0 auto"}}>
         <motion.div ref={ref} variants={stagger} initial="hidden" animate={inView?"visible":"hidden"}>
           <SectionLabel text="Featured Work" />
           <SectionTitle>Projects</SectionTitle>
-          <motion.div variants={stagger} style={{display:"flex",gap:"28px",flexWrap:"wrap"}}>
+          <motion.div variants={stagger} style={{display:"flex",gap:"24px",flexWrap:"wrap",justifyContent:"center"}}>
             <ProjectCard title="Project Management Platform" year="2024"
               description="A full-featured collaborative platform enabling teams to manage tasks, timelines, and deliverables. Built with a robust RESTful API backend and a responsive Bootstrap interface."
               stack={["Laravel","MySQL","Bootstrap","REST API"]}
@@ -732,12 +774,12 @@ function Education() {
   const ref = useRef(null);
   const inView = useInView(ref,{once:true,margin:"-60px"});
   return (
-    <section id="education" style={{padding:"120px 48px",background:"#fff"}}>
+    <section id="education" style={{padding:"clamp(80px,10vw,120px) clamp(20px,5vw,48px)",background:"#fff"}}>
       <div style={{maxWidth:"1200px",margin:"0 auto"}}>
         <motion.div ref={ref} variants={stagger} initial="hidden" animate={inView?"visible":"hidden"}>
           <SectionLabel text="Academic Background" />
           <SectionTitle>Education</SectionTitle>
-          <motion.div variants={stagger} style={{display:"flex",gap:"24px",flexWrap:"wrap"}}>
+          <motion.div variants={stagger} style={{display:"flex",gap:"20px",flexWrap:"wrap",justifyContent:"center"}}>
             <EduCard degree="Licence en Informatique de Gestion — E-Business"
               school="FSEG Nabeul" period="2021 – 2024"
               detail="Specialization in E-Business & Information Systems" idx={0} />
@@ -755,12 +797,12 @@ function Languages() {
   const ref = useRef(null);
   const inView = useInView(ref,{once:true,margin:"-60px"});
   return (
-    <section style={{padding:"120px 48px",background:"var(--bg)"}}>
+    <section style={{padding:"clamp(80px,10vw,120px) clamp(20px,5vw,48px)",background:"var(--bg)"}}>
       <div style={{maxWidth:"1200px",margin:"0 auto"}}>
         <motion.div ref={ref} variants={stagger} initial="hidden" animate={inView?"visible":"hidden"}>
           <SectionLabel text="Communication" />
           <SectionTitle>Languages</SectionTitle>
-          <div style={{maxWidth:"560px"}}>
+          <div style={{maxWidth:"100%", width:"560px"}}>
             <LanguageBar lang="Arabic" level="Native"  width="100%" idx={0} />
             <LanguageBar lang="French" level="B2 – C1" width="85%"  idx={1} />
             <LanguageBar lang="English" level="B1"     width="60%"  idx={2} />
@@ -776,7 +818,7 @@ function Contact() {
   const ref = useRef(null);
   const inView = useInView(ref,{once:true,margin:"-60px"});
   return (
-    <section id="contact" style={{padding:"140px 48px",background:"#fff",
+    <section id="contact" style={{padding:"clamp(100px,12vw,140px) clamp(20px,5vw,48px)",background:"#fff",
       textAlign:"center",position:"relative",overflow:"hidden"}}>
       <div style={{position:"absolute",top:"50%",left:"50%",
         transform:"translate(-50%,-50%)",width:"700px",height:"700px",
@@ -796,7 +838,7 @@ function Contact() {
           Let's connect and create something meaningful together.
         </motion.p>
         <motion.div variants={stagger}
-          style={{display:"flex",gap:"20px",justifyContent:"center",flexWrap:"wrap"}}>
+          style={{display:"flex",gap:"12px",justifyContent:"center",flexWrap:"wrap"}}>
           <motion.div variants={scaleIn}>
             <MagneticButton href="mailto:dhifamine18@gmail.com" variant="filled" icon="✉">
               dhifamine18@gmail.com
@@ -820,10 +862,20 @@ function Contact() {
 
 /* ── FOOTER ────────────────────────────────── */
 function Footer() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
   return (
     <footer style={{background:"var(--bg)",borderTop:"1px solid rgba(108,63,255,0.1)",
-      padding:"32px 48px",display:"flex",justifyContent:"space-between",
-      alignItems:"center",flexWrap:"wrap",gap:"12px"}}>
+      padding:isMobile ? "24px 20px" : "32px 48px",display:"flex",
+      flexDirection:isMobile ? "column" : "row",
+      justifyContent:"space-between",
+      alignItems:"center",flexWrap:"wrap",gap:isMobile ? "8px" : "12px",
+      textAlign:"center"}}>
       <span style={{fontFamily:"Syne,sans-serif",fontWeight:700,fontSize:"0.95rem",...GRAD_TEXT}}>
         Mohamed Amine Dhif
       </span>
@@ -835,13 +887,103 @@ function Footer() {
   );
 }
 
+/* ── MOBILE MENU ─────────────────────────── */
+function MobileMenu() {
+  const [open, setOpen] = useState(false);
+  const links = ["About","Skills","Experience","Projects","Education","Contact"];
+  return (
+    <>
+      <motion.button
+        onClick={() => setOpen(!open)}
+        whileTap={{scale:0.95}}
+        style={{
+          display:"none",
+          position:"fixed", top:"14px", right:"16px", zIndex:101,
+          width:"44px", height:"44px", borderRadius:"12px",
+          border:"1.5px solid rgba(108,63,255,0.2)",
+          background:"rgba(247,245,255,0.95)",
+          backdropFilter:"blur(12px)",
+          alignItems:"center", justifyContent:"center",
+          cursor:"pointer",
+        }}
+        className="mobile-menu-btn"
+      >
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6c3fff" strokeWidth="2.2" strokeLinecap="round">
+          <motion.line x1="3" y1="6" x2="21" y2="6" animate={{rotate: open ? 45 : 0, y: open ? 0 : 0}} />
+          <motion.line x1="3" y1="12" x2="21" y2="12" animate={{opacity: open ? 0 : 1}} />
+          <motion.line x1="3" y1="18" x2="21" y2="18" animate={{rotate: open ? -45 : 0, y: open ? 0 : 0}} />
+        </svg>
+      </motion.button>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{opacity:0, x:"100%"}}
+            animate={{opacity:1, x:0}}
+            exit={{opacity:0, x:"100%"}}
+            transition={{type:"spring", damping:25, stiffness:200}}
+            style={{
+              position:"fixed", inset:0, zIndex:100,
+              background:"rgba(247,245,255,0.98)",
+              backdropFilter:"blur(20px)",
+              display:"flex", flexDirection:"column",
+              alignItems:"center", justifyContent:"center", gap:"28px",
+              padding:"80px 24px",
+            }}
+          >
+            {links.map((l,i) => (
+              <motion.a
+                key={l}
+                href={`#${l.toLowerCase()}`}
+                onClick={() => setOpen(false)}
+                initial={{opacity:0, y:20}}
+                animate={{opacity:1, y:0}}
+                transition={{delay:i*0.08}}
+                style={{
+                  fontFamily:"Syne,sans-serif", fontSize:"2rem",
+                  fontWeight:700, ...GRAD_TEXT,
+                  textDecoration:"none",
+                }}
+              >
+                {l}
+              </motion.a>
+            ))}
+            <motion.a
+              href="https://linkedin.com/in/mohamed-amine-dhif/"
+              target="_blank" rel="noopener noreferrer"
+              initial={{opacity:0, y:20}}
+              animate={{opacity:1, y:0}}
+              transition={{delay:0.5}}
+              style={{
+                marginTop:"20px",
+                display:"inline-flex", alignItems:"center", gap:"10px",
+                padding:"14px 28px", borderRadius:"50px",
+                background:GRAD, color:"#fff",
+                fontFamily:"DM Mono,monospace", fontSize:"13px",
+                fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase",
+                textDecoration:"none",
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+              LinkedIn
+            </motion.a>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
+
 /* ── ROOT ──────────────────────────────────── */
 export default function Portfolio() {
   return (
     <div style={{background:"var(--bg)",minHeight:"100vh"}}>
+      <MobileMenu />
       <style>{`
         @media(max-width:768px){
-          nav>div:last-child{display:none!important}
+          .mobile-menu-btn{display:flex!important}
+          nav>div:nth-of-type(2){display:none!important}
           section{padding-left:20px!important;padding-right:20px!important}
           footer{padding:24px 20px!important}
         }
