@@ -294,7 +294,7 @@ function TimelineCard({ role, period, company, location, points, side, idx=0 }) 
 }
 
 /* ── PROJECT CARD ──────────────────────────── */
-function ProjectCard({ title, year, description, stack, gradient }) {
+function ProjectCard({ title, year, description, stack, gradient, demoUrl }) {
   const [hov, setHov] = useState(false);
   return (
     <motion.div variants={fadeUp}
@@ -321,7 +321,7 @@ function ProjectCard({ title, year, description, stack, gradient }) {
           color:"var(--text)",marginBottom:"14px",lineHeight:1.2}}>{title}</h3>
         <p style={{fontFamily:"DM Mono,monospace",fontSize:"13px",color:"var(--text-muted)",
           lineHeight:1.7,marginBottom:"24px"}}>{description}</p>
-        <div style={{display:"flex",flexWrap:"wrap",gap:"8px"}}>
+        <div style={{display:"flex",flexWrap:"wrap",gap:"8px",marginBottom:"24px"}}>
           {stack.map((s,i)=>(
             <span key={s} style={{
               fontFamily:"DM Mono,monospace",fontSize:"11px",letterSpacing:"0.08em",
@@ -331,6 +331,28 @@ function ProjectCard({ title, year, description, stack, gradient }) {
             }}>{s}</span>
           ))}
         </div>
+        {demoUrl && (
+          <motion.a href={demoUrl} target="_blank" rel="noopener noreferrer"
+            whileHover={{scale:1.04, y:-2}}
+            whileTap={{scale:0.97}}
+            transition={{type:"spring",stiffness:300,damping:18}}
+            style={{
+              display:"inline-flex", alignItems:"center", gap:"8px",
+              padding:"11px 24px", borderRadius:"50px",
+              background: gradient,
+              color:"#fff", textDecoration:"none",
+              fontFamily:"DM Mono,monospace", fontSize:"12px",
+              fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase",
+              boxShadow:`0 6px 24px ${gradient.includes("6c3fff") ? "rgba(108,63,255,0.35)" : "rgba(0,194,255,0.35)"}`,
+            }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+              <polyline points="15 3 21 3 21 9"/>
+              <line x1="10" y1="14" x2="21" y2="3"/>
+            </svg>
+            Live Demo
+          </motion.a>
+        )}
       </div>
     </motion.div>
   );
@@ -404,13 +426,28 @@ function Nav() {
       <motion.a href="#hero" whileHover={{scale:1.05}} style={{
         fontFamily:"Syne,sans-serif",fontWeight:800,fontSize:"1.2rem",
         ...GRAD_TEXT, textDecoration:"none",zIndex:1}}>Portfolio</motion.a>
-      <div style={{display:"flex",gap:"28px",zIndex:1}}>
+      <div style={{display:"flex",gap:"28px",alignItems:"center",zIndex:1}}>
         {links.map(l=>(
           <motion.a key={l} href={`#${l.toLowerCase()}`} onClick={()=>setActive(l)}
             whileHover={{color:"#6c3fff"}}
             style={{fontFamily:"DM Mono,monospace",fontSize:"12px",letterSpacing:"0.12em",
               textTransform:"uppercase",color:active===l?"#6c3fff":"var(--text-muted)",textDecoration:"none"}}>{l}</motion.a>
         ))}
+        <motion.a href="https://linkedin.com/in/mohamed-amine-dhif/" target="_blank" rel="noopener noreferrer"
+          whileHover={{scale:1.12, color:"#6c3fff"}}
+          whileTap={{scale:0.95}}
+          title="LinkedIn"
+          style={{
+            display:"inline-flex", alignItems:"center", justifyContent:"center",
+            width:"34px", height:"34px", borderRadius:"8px",
+            border:"1.5px solid rgba(108,63,255,0.2)",
+            background:"rgba(108,63,255,0.07)",
+            color:"#6c3fff", textDecoration:"none", flexShrink:0,
+          }}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </motion.a>
       </div>
     </motion.nav>
   );
@@ -671,11 +708,13 @@ function Projects() {
             <ProjectCard title="Project Management Platform" year="2024"
               description="A full-featured collaborative platform enabling teams to manage tasks, timelines, and deliverables. Built with a robust RESTful API backend and a responsive Bootstrap interface."
               stack={["Laravel","MySQL","Bootstrap","REST API"]}
-              gradient="linear-gradient(135deg,#6c3fff,#ff5eaa)" />
+              gradient="linear-gradient(135deg,#6c3fff,#ff5eaa)"
+              demoUrl="#" />
             <ProjectCard title="Client Complaint App" year="2022"
               description="A web-based complaint management system for Tunisie Télécom clients. Allows submission, tracking, and resolution of service complaints with an admin dashboard."
               stack={["PHP","HTML5","CSS3","JavaScript"]}
-              gradient="linear-gradient(135deg,#00c2ff,#06b6d4)" />
+              gradient="linear-gradient(135deg,#00c2ff,#06b6d4)"
+              demoUrl="#" />
           </motion.div>
         </motion.div>
       </div>
@@ -761,6 +800,11 @@ function Contact() {
           <motion.div variants={scaleIn}>
             <MagneticButton href="tel:+21695269193" variant="outline" icon="↗">
               +216 95 269 193
+            </MagneticButton>
+          </motion.div>
+          <motion.div variants={scaleIn}>
+            <MagneticButton href="https://linkedin.com/in/mohamed-amine-dhif/" variant="filled" icon="in">
+              LinkedIn
             </MagneticButton>
           </motion.div>
         </motion.div>
