@@ -490,7 +490,7 @@ function Hero() {
   const onMove = useCallback((e)=>{ mouseX.set(e.clientX); mouseY.set(e.clientY); },[mouseX,mouseY]);
 
   const words = ["Mohamed","Amine","Dhif"];
-  const roles = ["Full-Stack Developer","Laravel Expert","React Engineer","API Architect"];
+  const roles = ["Full-Stack Developer","Laravel Expert","API Architect"];
   const [roleIdx,setRoleIdx] = useState(0);
   useEffect(()=>{
     const t = setInterval(()=>setRoleIdx(i=>(i+1)%roles.length),2500);
