@@ -769,12 +769,6 @@ function Projects() {
           <SectionLabel text="Featured Work" />
           <SectionTitle>Projects</SectionTitle>
           <motion.div variants={stagger} style={{display:"flex",gap:"24px",flexWrap:"wrap",justifyContent:"center"}}>
-            <ProjectCard title="Project Management Platform" year="2024"
-              description="A full-featured collaborative platform enabling teams to manage tasks, timelines, and deliverables. Built with a robust RESTful API backend and a responsive Bootstrap interface."
-              stack={["Laravel","MySQL","Bootstrap","REST API"]}
-              gradient="linear-gradient(135deg,#6c3fff,#ff5eaa)"
-              demoUrl="#"
-              githubUrl="#" />
             <ProjectCard title="Portfolio" year="2024"
               description="A modern, responsive portfolio website showcasing projects and skills. Built with clean HTML structure, custom CSS styling, and interactive JavaScript features."
               stack={["HTML5","CSS3","JavaScript"]}
