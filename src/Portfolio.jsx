@@ -305,7 +305,7 @@ function TimelineCard({ role, period, company, location, points, side, idx=0 }) 
 }
 
 /* ── PROJECT CARD ──────────────────────────── */
-function ProjectCard({ title, year, description, stack, gradient, demoUrl }) {
+function ProjectCard({ title, year, description, stack, gradient, demoUrl, githubUrl }) {
   const [hov, setHov] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
@@ -349,28 +349,50 @@ function ProjectCard({ title, year, description, stack, gradient, demoUrl }) {
             }}>{s}</span>
           ))}
         </div>
-        {demoUrl && (
-          <motion.a href={demoUrl} target="_blank" rel="noopener noreferrer"
-            whileHover={{scale:1.04, y:-2}}
-            whileTap={{scale:0.97}}
-            transition={{type:"spring",stiffness:300,damping:18}}
-            style={{
-              display:"inline-flex", alignItems:"center", gap:"8px",
-              padding:"11px 24px", borderRadius:"50px",
-              background: gradient,
-              color:"#fff", textDecoration:"none",
-              fontFamily:"DM Mono,monospace", fontSize:"12px",
-              fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase",
-              boxShadow:`0 6px 24px ${gradient.includes("6c3fff") ? "rgba(108,63,255,0.35)" : "rgba(0,194,255,0.35)"}`,
-            }}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
-              <polyline points="15 3 21 3 21 9"/>
-              <line x1="10" y1="14" x2="21" y2="3"/>
-            </svg>
-            Live Demo
-          </motion.a>
-        )}
+        <div style={{display:"flex", gap:"12px", flexWrap:"wrap"}}>
+          {demoUrl && (
+            <motion.a href={demoUrl} target="_blank" rel="noopener noreferrer"
+              whileHover={{scale:1.04, y:-2}}
+              whileTap={{scale:0.97}}
+              transition={{type:"spring",stiffness:300,damping:18}}
+              style={{
+                display:"inline-flex", alignItems:"center", gap:"8px",
+                padding:"11px 22px", borderRadius:"50px",
+                background: gradient,
+                color:"#fff", textDecoration:"none",
+                fontFamily:"DM Mono,monospace", fontSize:"12px",
+                fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase",
+                boxShadow:`0 6px 24px ${gradient.includes("6c3fff") ? "rgba(108,63,255,0.35)" : gradient.includes("f59e0b") ? "rgba(245,158,11,0.35)" : "rgba(0,194,255,0.35)"}`,
+              }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+              Live Demo
+            </motion.a>
+          )}
+          {githubUrl && (
+            <motion.a href={githubUrl} target="_blank" rel="noopener noreferrer"
+              whileHover={{scale:1.04, y:-2}}
+              whileTap={{scale:0.97}}
+              transition={{type:"spring",stiffness:300,damping:18}}
+              style={{
+                display:"inline-flex", alignItems:"center", gap:"8px",
+                padding:"11px 22px", borderRadius:"50px",
+                background:"transparent",
+                color:"#6b6584", textDecoration:"none",
+                fontFamily:"DM Mono,monospace", fontSize:"12px",
+                fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase",
+                border:"1.5px solid rgba(107,101,132,0.25)",
+              }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              </svg>
+              GitHub
+            </motion.a>
+          )}
+        </div>
       </div>
     </motion.div>
   );
@@ -751,17 +773,26 @@ function Projects() {
               description="A full-featured collaborative platform enabling teams to manage tasks, timelines, and deliverables. Built with a robust RESTful API backend and a responsive Bootstrap interface."
               stack={["Laravel","MySQL","Bootstrap","REST API"]}
               gradient="linear-gradient(135deg,#6c3fff,#ff5eaa)"
-              demoUrl="#" />
+              demoUrl="#"
+              githubUrl="#" />
             <ProjectCard title="Portfolio" year="2024"
               description="A modern, responsive portfolio website showcasing projects and skills. Built with clean HTML structure, custom CSS styling, and interactive JavaScript features."
               stack={["HTML5","CSS3","JavaScript"]}
               gradient="linear-gradient(135deg,#00c2ff,#06b6d4)"
-              demoUrl="https://portfolio-wassim-eta.vercel.app" />
+              demoUrl="https://portfolio-wassim-eta.vercel.app"
+              githubUrl="#" />
             <ProjectCard title="Dhayoufi Store" year="2024"
               description="A modern e-commerce website with product catalog, shopping cart, and checkout flow. Built with responsive design and smooth user experience for online shopping."
               stack={["React","Next.js","Tailwind CSS","Vercel"]}
               gradient="linear-gradient(135deg,#f59e0b,#ef4444)"
-              demoUrl="https://dhayoufi-store.vercel.app" />
+              demoUrl="https://dhayoufi-store.vercel.app"
+              githubUrl="#" />
+            <ProjectCard title="Inventory Management System" year="2024"
+              description="A comprehensive inventory management system with real-time stock tracking, authentication, and cloud storage. Built with modern React tooling and Firebase backend services."
+              stack={["React","Vite","Firebase","Firestore","Auth"]}
+              gradient="linear-gradient(135deg,#10b981,#059669)"
+              demoUrl="https://inventory-management-system-mocha-phi.vercel.app/"
+              githubUrl="#" />
           </motion.div>
         </motion.div>
       </div>
