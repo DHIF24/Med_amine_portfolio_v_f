@@ -780,19 +780,19 @@ function Projects() {
               stack={["HTML5","CSS3","JavaScript"]}
               gradient="linear-gradient(135deg,#00c2ff,#06b6d4)"
               demoUrl="https://portfolio-wassim-eta.vercel.app"
-              githubUrl="#" />
+              githubUrl="https://github.com/DHIF24/portfolio-wassim" />
             <ProjectCard title="Dhayoufi Store" year="2024"
               description="A modern e-commerce website with product catalog, shopping cart, and checkout flow. Built with responsive design and smooth user experience for online shopping."
               stack={["React","Next.js","Tailwind CSS","Vercel"]}
               gradient="linear-gradient(135deg,#f59e0b,#ef4444)"
               demoUrl="https://dhayoufi-store.vercel.app"
-              githubUrl="#" />
+              githubUrl="https://github.com/DHIF24/dhayoufi_store" />
             <ProjectCard title="Inventory Management System" year="2024"
               description="A comprehensive inventory management system with real-time stock tracking, authentication, and cloud storage. Built with modern React tooling and Firebase backend services."
               stack={["React","Vite","Firebase","Firestore","Auth"]}
               gradient="linear-gradient(135deg,#10b981,#059669)"
               demoUrl="https://inventory-management-system-mocha-phi.vercel.app/"
-              githubUrl="#" />
+              githubUrl="https://github.com/DHIF24/Inventory-Management-System" />
           </motion.div>
         </motion.div>
       </div>
