@@ -787,6 +787,12 @@ function Projects() {
               gradient="linear-gradient(135deg,#60a5fa,#3b82f6)"
               demoUrl="https://inventory-management-system-mocha-phi.vercel.app/"
               githubUrl="https://github.com/DHIF24/Inventory-Management-System" />
+            <ProjectCard title="Taba3 flousek" year="2024"
+              description="A React-based progressive web application for personal budget management. Built with Vite and Tailwind CSS for responsive, mobile-first design. Integrates Firebase Authentication for secure user access and Firestore for real-time data persistence of transactions, custom categories, and user settings across devices. Features monthly expense tracking."
+              stack={["React","Vite","Tailwind CSS","Firebase","Firestore","Auth"]}
+              gradient="linear-gradient(135deg,#93c5fd,#60a5fa)"
+              demoUrl="https://www.taba3flousek.online/"
+              githubUrl="https://github.com/DHIF24/flowbudget" />
           </motion.div>
         </motion.div>
       </div>
