@@ -800,6 +800,12 @@ function Projects() {
               gradient="linear-gradient(135deg,#93c5fd,#60a5fa)"
               demoUrl="https://www.taba3flousek.online/"
               githubUrl="https://github.com/DHIF24/flowbudget" />
+            <ProjectCard title="AURUM" year="2024"
+              description="A luxury Swiss-inspired watch brand vitrine website featuring elegant animations and a premium dark aesthetic with gold accents. Built with Next.js 14, TypeScript, Tailwind CSS, and Framer Motion for smooth scroll animations and interactive components. Includes hero section, featured collection, brand heritage with animated counters, craftsmanship features, testimonials carousel, and contact form."
+              stack={["Next.js 14","TypeScript","Tailwind CSS","Framer Motion"]}
+              gradient="linear-gradient(135deg,#1e40af,#2563eb)"
+              demoUrl="https://aurum-site-vitrine.vercel.app"
+              githubUrl="https://github.com/DHIF24/aurum-site-vitrine" />
           </motion.div>
         </motion.div>
       </div>
