@@ -11,7 +11,7 @@ import {
 } from "framer-motion";
 
 /* ── CONSTANTS ─────────────────────────────── */
-const GRAD = "linear-gradient(135deg,#6c3fff 0%,#ff5eaa 50%,#00c2ff 100%)";
+const GRAD = "linear-gradient(135deg,#2563eb 0%,#1d4ed8 100%)";
 const GRAD_TEXT = {
   background: GRAD,
   WebkitBackgroundClip: "text",
@@ -19,16 +19,16 @@ const GRAD_TEXT = {
   backgroundClip: "text",
 };
 const GRADS = [
-  "linear-gradient(135deg,#6c3fff,#a855f7)",
-  "linear-gradient(135deg,#ff5eaa,#f97316)",
-  "linear-gradient(135deg,#00c2ff,#06b6d4)",
-  "linear-gradient(135deg,#f59e0b,#ef4444)",
+  "linear-gradient(135deg,#2563eb,#1d4ed8)",
+  "linear-gradient(135deg,#3b82f6,#2563eb)",
+  "linear-gradient(135deg,#60a5fa,#3b82f6)",
+  "linear-gradient(135deg,#93c5fd,#60a5fa)",
 ];
 const PILL_COLORS = [
-  ["rgba(108,63,255,0.1)", "#6c3fff"],
-  ["rgba(255,94,170,0.1)", "#ff5eaa"],
-  ["rgba(0,194,255,0.1)",  "#00c2ff"],
-  ["rgba(245,158,11,0.1)", "#f59e0b"],
+  ["rgba(37,99,235,0.1)", "#2563eb"],
+  ["rgba(59,130,246,0.1)", "#3b82f6"],
+  ["rgba(96,165,250,0.1)", "#60a5fa"],
+  ["rgba(147,197,253,0.1)", "#93c5fd"],
 ];
 
 /* ── VARIANTS ──────────────────────────────── */
@@ -54,10 +54,10 @@ function HeroBg({ mouseX, mouseY }) {
   return (
     <div style={{ position:"absolute", inset:0, overflow:"hidden", zIndex:0 }}>
       {[
-        {x:"6%",  y:"10%", s:560, c:"rgba(108,63,255,0.20)", d:0},
-        {x:"62%", y:"50%", s:440, c:"rgba(255,94,170,0.17)", d:1.8},
-        {x:"48%", y:"2%",  s:300, c:"rgba(0,194,255,0.14)",  d:3.2},
-        {x:"78%", y:"72%", s:200, c:"rgba(108,63,255,0.10)", d:2.1},
+        {x:"6%",  y:"10%", s:560, c:"rgba(37,99,235,0.15)", d:0},
+        {x:"62%", y:"50%", s:440, c:"rgba(59,130,246,0.12)", d:1.8},
+        {x:"48%", y:"2%",  s:300, c:"rgba(96,165,250,0.10)",  d:3.2},
+        {x:"78%", y:"72%", s:200, c:"rgba(37,99,235,0.08)", d:2.1},
       ].map((o,i)=>(
         <motion.div key={i} style={{
           position:"absolute", left:o.x, top:o.y, width:o.s, height:o.s,
@@ -68,13 +68,13 @@ function HeroBg({ mouseX, mouseY }) {
       ))}
       <motion.div style={{
         position:"absolute", width:720, height:720, borderRadius:"50%",
-        background:"radial-gradient(circle,rgba(108,63,255,0.11) 0%,transparent 65%)",
+        background:"radial-gradient(circle,rgba(37,99,235,0.08) 0%,transparent 65%)",
         filter:"blur(32px)", pointerEvents:"none",
         translateX:"-50%", translateY:"-50%", left:mouseX, top:mouseY,
       }} />
       <div style={{
         position:"absolute", inset:0,
-        backgroundImage:"linear-gradient(rgba(108,63,255,0.035) 1px,transparent 1px),linear-gradient(90deg,rgba(108,63,255,0.035) 1px,transparent 1px)",
+        backgroundImage:"linear-gradient(rgba(37,99,235,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(37,99,235,0.04) 1px,transparent 1px)",
         backgroundSize:"64px 64px",
       }} />
     </div>
@@ -101,15 +101,15 @@ function MagneticButton({ children, href, icon, variant="outline" }) {
       style={{
         x:sx, y:sy,
         background: filled ? GRAD : "rgba(255,255,255,0.92)",
-        border: filled ? "none" : "2px solid rgba(108,63,255,0.25)",
-        color: filled ? "#fff" : "#6c3fff",
+        border: filled ? "none" : "2px solid rgba(37,99,235,0.2)",
+        color: filled ? "#fff" : "#2563eb",
         backdropFilter:"blur(8px)",
         cursor:"pointer", textDecoration:"none",
         display:"inline-flex", alignItems:"center", gap:"10px",
         padding:"15px 32px", borderRadius:"50px",
         fontFamily:"DM Mono,monospace", fontSize:"13px", fontWeight:500,
         letterSpacing:"0.1em", textTransform:"uppercase",
-        boxShadow: filled ? "0 8px 32px rgba(108,63,255,0.35)" : "0 4px 20px rgba(108,63,255,0.1)",
+        boxShadow: filled ? "0 8px 32px rgba(37,99,235,0.25)" : "0 4px 20px rgba(37,99,235,0.1)",
       }}>
       {icon && <span>{icon}</span>}
       {children}
@@ -153,11 +153,11 @@ function StatCard({ number, suffix, label, idx }) {
   const count = useCountUp(number, inView);
   return (
     <motion.div ref={ref} variants={scaleIn}
-      whileHover={{y:-4, boxShadow:"0 20px 60px rgba(108,63,255,0.22)"}}
+      whileHover={{y:-4, boxShadow:"0 20px 60px rgba(37,99,235,0.15)"}}
       transition={{type:"spring",stiffness:280}}
       style={{
-        background:"#fff", border:"1.5px solid rgba(108,63,255,0.1)", borderRadius:"20px",
-        padding:"28px 22px", flex:"1 1 120px", minWidth:"120px", boxShadow:"0 8px 40px rgba(108,63,255,0.10)",
+        background:"#fff", border:"1.5px solid rgba(0,0,0,0.08)", borderRadius:"20px",
+        padding:"28px 22px", flex:"1 1 120px", minWidth:"120px", boxShadow:"0 4px 24px rgba(0,0,0,0.06)",
         position:"relative", overflow:"hidden",
       }}>
       <div style={{position:"absolute",top:0,left:0,right:0,height:"3px",background:GRADS[idx%3]}} />
@@ -210,10 +210,10 @@ function SkillsCarousel() {
           <span key={i} style={{
             display:"inline-flex", alignItems:"center", gap:"8px",
             padding:"10px 22px", borderRadius:"50px",
-            background:"#fff", border:"1.5px solid rgba(108,63,255,0.1)",
+            background:"#fff", border:"1.5px solid rgba(0,0,0,0.08)",
             fontFamily:"DM Mono,monospace", fontSize:"13px", fontWeight:500,
             color:"var(--text-muted)", whiteSpace:"nowrap",
-            boxShadow:"0 4px 16px rgba(108,63,255,0.08)",
+            boxShadow:"0 4px 16px rgba(0,0,0,0.06)",
           }}>
             <span style={{width:8,height:8,borderRadius:"50%",flexShrink:0,background:GRADS[i%3]}} />
             {s}
@@ -235,9 +235,9 @@ function TimelineLine() {
         preserveAspectRatio="none" viewBox="0 0 4 100">
         <defs>
           <linearGradient id="tlg" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#6c3fff"/>
-            <stop offset="50%" stopColor="#ff5eaa"/>
-            <stop offset="100%" stopColor="#00c2ff"/>
+            <stop offset="0%" stopColor="#2563eb"/>
+            <stop offset="50%" stopColor="#3b82f6"/>
+            <stop offset="100%" stopColor="#60a5fa"/>
           </linearGradient>
         </defs>
         <motion.line x1="2" y1="0" x2="2" y2="100"
@@ -263,12 +263,12 @@ function TimelineCard({ role, period, company, location, points, side, idx=0 }) 
   }, []);
   return (
     <motion.div ref={ref} variants={v} initial="hidden" animate={inView?"visible":"hidden"}
-      whileHover={{y:-4, boxShadow:"0 20px 60px rgba(108,63,255,0.18)"}}
+      whileHover={{y:-4, boxShadow:"0 20px 60px rgba(0,0,0,0.1)"}}
       transition={{type:"spring",stiffness:260}}
       style={{
-        background:"#fff", border:"1.5px solid rgba(108,63,255,0.1)", borderRadius:"20px",
+        background:"#fff", border:"1.5px solid rgba(0,0,0,0.08)", borderRadius:"20px",
         padding:isMobile ? "24px 20px" : "32px", flex:1, maxWidth:"480px", width:"100%", position:"relative",
-        boxShadow:"0 8px 40px rgba(108,63,255,0.08)", overflow:"hidden",
+        boxShadow:"0 4px 24px rgba(0,0,0,0.06)", overflow:"hidden",
         marginLeft:isMobile ? "0" : undefined,
         marginRight:isMobile ? "0" : undefined,
       }}>
@@ -279,7 +279,7 @@ function TimelineCard({ role, period, company, location, points, side, idx=0 }) 
           [side==="left"?"right":"left"]:"-9px",
           width:"18px", height:"18px", borderRadius:"50%",
           background:GRADS[idx%2], border:"3px solid #f7f5ff",
-          boxShadow:`0 0 14px ${["rgba(108,63,255,0.5)","rgba(255,94,170,0.5)"][idx%2]}`,
+          boxShadow:`0 0 14px rgba(37,99,235,0.3)`,
         }} />
       )}
       <p style={{fontFamily:"DM Mono,monospace",fontSize:"11px",letterSpacing:"0.2em",
@@ -296,7 +296,7 @@ function TimelineCard({ role, period, company, location, points, side, idx=0 }) 
         {points.map((p,i)=>(
           <li key={i} style={{fontFamily:"DM Mono,monospace",fontSize:"13px",color:"var(--text-muted)",
             paddingLeft:"16px",position:"relative",marginBottom:"8px",lineHeight:1.6}}>
-            <span style={{position:"absolute",left:0,color:"#6c3fff",fontWeight:700}}>›</span>{p}
+            <span style={{position:"absolute",left:0,color:"#2563eb",fontWeight:700}}>›</span>{p}
           </li>
         ))}
       </ul>
@@ -320,17 +320,17 @@ function ProjectCard({ title, year, description, stack, gradient, demoUrl, githu
       onHoverStart={()=>setHov(true)} onHoverEnd={()=>setHov(false)}
       transition={{type:"spring",stiffness:240,damping:18}}
       style={{
-        background:"#fff", border:"1.5px solid rgba(108,63,255,0.1)", borderRadius:"24px",
+        background:"#fff", border:"1.5px solid rgba(0,0,0,0.08)", borderRadius:"24px",
         padding:isMobile ? "28px 22px" : "40px 36px", flex:"1 1 300px", minWidth:"280px", maxWidth:"520px",
         position:"relative", overflow:"hidden", transformPerspective:900,
         cursor:"default",
-        boxShadow: hov ? "0 24px 64px rgba(108,63,255,0.22)" : "0 8px 40px rgba(108,63,255,0.1)",
+        boxShadow: hov ? "0 12px 40px rgba(0,0,0,0.1)" : "0 4px 24px rgba(0,0,0,0.06)",
         transition:"box-shadow 0.3s",
       }}>
       <div style={{position:"absolute",top:0,left:0,right:0,height:"4px",background:gradient}} />
       <motion.div animate={{opacity:hov?1:0}} transition={{duration:0.3}}
         style={{position:"absolute",inset:0,zIndex:0,pointerEvents:"none",
-          background:`radial-gradient(ellipse at top left,${gradient.includes("6c3fff")?"rgba(108,63,255,0.06)":"rgba(0,194,255,0.06)"},transparent 70%)`}} />
+          background:`radial-gradient(ellipse at top left,rgba(37,99,235,0.06),transparent 70%)`}} />
       <div style={{position:"relative",zIndex:1}}>
         <p style={{fontFamily:"DM Mono,monospace",fontSize:"11px",letterSpacing:"0.2em",
           background:gradient,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",
@@ -362,7 +362,7 @@ function ProjectCard({ title, year, description, stack, gradient, demoUrl, githu
                 color:"#fff", textDecoration:"none",
                 fontFamily:"DM Mono,monospace", fontSize:"12px",
                 fontWeight:500, letterSpacing:"0.1em", textTransform:"uppercase",
-                boxShadow:`0 6px 24px ${gradient.includes("6c3fff") ? "rgba(108,63,255,0.35)" : gradient.includes("f59e0b") ? "rgba(245,158,11,0.35)" : "rgba(0,194,255,0.35)"}`,
+                boxShadow:`0 6px 24px rgba(37,99,235,0.25)`,
               }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
@@ -410,13 +410,13 @@ function LanguageBar({ lang, level, width, idx=0 }) {
           background:GRADS[idx%3],WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",
           backgroundClip:"text",display:"inline-block"}}>{level}</span>
       </div>
-      <div style={{height:"8px",background:"rgba(108,63,255,0.08)",borderRadius:"50px",
+      <div style={{height:"8px",background:"rgba(37,99,235,0.08)",borderRadius:"50px",
         position:"relative",overflow:"hidden"}}>
         <motion.div initial={{scaleX:0}} animate={inView?{scaleX:1}:{}}
           transition={{duration:1.4,ease:[0.25,1,0.5,1],delay:0.2}}
           style={{position:"absolute",inset:0,width:width,background:GRADS[idx%3],
             transformOrigin:"left",borderRadius:"50px",
-            boxShadow:`0 0 14px ${["rgba(108,63,255,0.4)","rgba(255,94,170,0.4)","rgba(0,194,255,0.4)"][idx%3]}`}} />
+            boxShadow:`0 0 14px rgba(37,99,235,0.25)`}} />
       </div>
     </motion.div>
   );
@@ -433,16 +433,16 @@ function EduCard({ degree, school, period, detail, idx=0 }) {
   }, []);
   return (
     <motion.div variants={fadeUp}
-      whileHover={!isMobile ? {y:-6,boxShadow:"0 20px 60px rgba(108,63,255,0.18)"} : {}}
+      whileHover={!isMobile ? {y:-6,boxShadow:"0 20px 60px rgba(0,0,0,0.1)"} : {}}
       transition={{type:"spring",stiffness:260}}
       style={{
-        background:"#fff", border:"1.5px solid rgba(108,63,255,0.1)", borderRadius:"20px",
+        background:"#fff", border:"1.5px solid rgba(0,0,0,0.08)", borderRadius:"20px",
         padding:isMobile ? "26px 22px" : "36px 32px", flex:"1 1 280px", minWidth:"260px", position:"relative",
-        overflow:"hidden", boxShadow:"0 8px 40px rgba(108,63,255,0.08)",
+        overflow:"hidden", boxShadow:"0 4px 24px rgba(0,0,0,0.06)",
       }}>
       <div style={{position:"absolute",top:0,left:0,right:0,height:"3px",background:GRADS[idx%2]}} />
       <div style={{position:"absolute",bottom:-24,right:-24,width:"110px",height:"110px",
-        borderRadius:"50%",background:`radial-gradient(circle,${["rgba(108,63,255,0.08)","rgba(255,94,170,0.08)"][idx%2]},transparent 70%)`}} />
+        borderRadius:"50%",background:`radial-gradient(circle,rgba(37,99,235,0.06),transparent 70%)`}} />
       <p style={{fontFamily:"DM Mono,monospace",fontSize:"11px",letterSpacing:"0.2em",
         background:GRADS[idx%2],WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",
         backgroundClip:"text",marginBottom:"12px",textTransform:"uppercase",display:"inline-block"}}>{period}</p>
@@ -467,29 +467,29 @@ function Nav() {
       display:"flex",justifyContent:"space-between",alignItems:"center",
       padding:"14px clamp(16px,4vw,48px)",backdropFilter:"blur(16px)"}}>
       <motion.div style={{opacity:bgOpacity,position:"absolute",inset:0,zIndex:-1,
-        background:"rgba(247,245,255,0.93)",
-        borderBottom:"1px solid rgba(108,63,255,0.1)",
-        boxShadow:"0 2px 20px rgba(108,63,255,0.06)"}} />
+        background:"rgba(255,255,255,0.95)",
+        borderBottom:"1px solid rgba(0,0,0,0.08)",
+        boxShadow:"0 2px 20px rgba(0,0,0,0.05)"}} />
       <motion.a href="#hero" whileHover={{scale:1.05}} style={{
         fontFamily:"Syne,sans-serif",fontWeight:800,fontSize:"clamp(1.1rem,3vw,1.2rem)",
         ...GRAD_TEXT, textDecoration:"none",zIndex:1}}>Portfolio</motion.a>
       <div style={{display:"flex",gap:"28px",alignItems:"center",zIndex:1}} className="desktop-nav">
         {links.map(l=>(
           <motion.a key={l} href={`#${l.toLowerCase()}`} onClick={()=>setActive(l)}
-            whileHover={{color:"#6c3fff"}}
+            whileHover={{color:"#2563eb"}}
             style={{fontFamily:"DM Mono,monospace",fontSize:"12px",letterSpacing:"0.12em",
-              textTransform:"uppercase",color:active===l?"#6c3fff":"var(--text-muted)",textDecoration:"none"}}>{l}</motion.a>
+              textTransform:"uppercase",color:active===l?"#2563eb":"var(--text-muted)",textDecoration:"none"}}>{l}</motion.a>
         ))}
         <motion.a href="https://linkedin.com/in/mohamed-amine-dhif/" target="_blank" rel="noopener noreferrer"
-          whileHover={{scale:1.12, color:"#6c3fff"}}
+          whileHover={{scale:1.12, color:"#2563eb"}}
           whileTap={{scale:0.95}}
           title="LinkedIn"
           style={{
             display:"inline-flex", alignItems:"center", justifyContent:"center",
             width:"34px", height:"34px", borderRadius:"8px",
-            border:"1.5px solid rgba(108,63,255,0.2)",
-            background:"rgba(108,63,255,0.07)",
-            color:"#6c3fff", textDecoration:"none", flexShrink:0,
+            border:"1.5px solid rgba(37,99,235,0.2)",
+            background:"rgba(37,99,235,0.05)",
+            color:"#2563eb", textDecoration:"none", flexShrink:0,
           }}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
             <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
@@ -535,12 +535,12 @@ function Hero() {
           transition={{duration:0.7,delay:0.1}}
           style={{display:"inline-flex",alignItems:"center",gap:"8px",
             padding:"8px 22px",borderRadius:"50px",marginBottom:"36px",
-            background:"rgba(108,63,255,0.09)",border:"1.5px solid rgba(108,63,255,0.2)"}}>
+            background:"rgba(37,99,235,0.08)",border:"1.5px solid rgba(37,99,235,0.15)"}}>
           <motion.span animate={{scale:[1,1.5,1],opacity:[1,0.4,1]}}
             transition={{duration:2,repeat:Infinity}}
-            style={{width:8,height:8,borderRadius:"50%",background:"#6c3fff",display:"inline-block"}} />
+            style={{width:8,height:8,borderRadius:"50%",background:"#2563eb",display:"inline-block"}} />
           <span style={{fontFamily:"DM Mono,monospace",fontSize:"12px",letterSpacing:"0.15em",
-            color:"#6c3fff",textTransform:"uppercase"}}>Available for work · Nabeul, Tunisia</span>
+            color:"#2563eb",textTransform:"uppercase"}}>Available for work · Nabeul, Tunisia</span>
         </motion.div>
 
         {/* Name */}
@@ -597,8 +597,8 @@ function Hero() {
               transition={{duration:3+i*0.6,repeat:Infinity,delay:i*0.45,ease:"easeInOut"}}
               style={{fontFamily:"DM Mono,monospace",fontSize:"clamp(11px,2.5vw,12px)",padding:"6px 14px",
                 borderRadius:"50px",background:"rgba(255,255,255,0.85)",
-                border:"1.5px solid rgba(108,63,255,0.12)",color:"var(--text-muted)",
-                boxShadow:"0 4px 16px rgba(108,63,255,0.08)",backdropFilter:"blur(8px)"}}>
+                border:"1.5px solid rgba(37,99,235,0.12)",color:"var(--text-muted)",
+                boxShadow:"0 4px 16px rgba(0,0,0,0.06)",backdropFilter:"blur(8px)"}}>
               {t}
             </motion.span>
           ))}
@@ -614,7 +614,7 @@ function Hero() {
           <span style={{fontFamily:"DM Mono,monospace",fontSize:"10px",letterSpacing:"0.2em",
             color:"var(--text-muted)",textTransform:"uppercase"}}>Scroll</span>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M12 4L12 20M5 13L12 20L19 13" stroke="#6c3fff"
+            <path d="M12 4L12 20M5 13L12 20L19 13" stroke="#2563eb"
               strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </motion.div>
@@ -674,7 +674,7 @@ function Skills() {
   return (
     <section id="skills" style={{padding:"clamp(80px,10vw,120px) clamp(20px,5vw,48px)",background:"var(--bg)",position:"relative",overflow:"hidden"}}>
       <div style={{position:"absolute",top:"-200px",right:"-150px",width:"500px",height:"500px",
-        borderRadius:"50%",background:"radial-gradient(circle,rgba(108,63,255,0.07),transparent 70%)",pointerEvents:"none"}} />
+        borderRadius:"50%",background:"radial-gradient(circle,rgba(37,99,235,0.06),transparent 70%)",pointerEvents:"none"}} />
       <div style={{maxWidth:"1200px",margin:"0 auto"}}>
         <motion.div ref={ref} variants={stagger} initial="hidden" animate={inView?"visible":"hidden"}>
           <SectionLabel text="What I Know" />
@@ -772,19 +772,19 @@ function Projects() {
             <ProjectCard title="Portfolio" year="2024"
               description="A modern, responsive portfolio website showcasing projects and skills. Built with clean HTML structure, custom CSS styling, and interactive JavaScript features."
               stack={["HTML5","CSS3","JavaScript"]}
-              gradient="linear-gradient(135deg,#00c2ff,#06b6d4)"
+              gradient="linear-gradient(135deg,#2563eb,#1d4ed8)"
               demoUrl="https://portfolio-wassim-eta.vercel.app"
               githubUrl="https://github.com/DHIF24/portfolio-wassim" />
             <ProjectCard title="Dhayoufi Store" year="2024"
               description="A modern e-commerce website with product catalog, shopping cart, and checkout flow. Built with responsive design and smooth user experience for online shopping."
               stack={["React","Next.js","Tailwind CSS","Vercel"]}
-              gradient="linear-gradient(135deg,#f59e0b,#ef4444)"
+              gradient="linear-gradient(135deg,#3b82f6,#2563eb)"
               demoUrl="https://dhayoufi-store.vercel.app"
               githubUrl="https://github.com/DHIF24/dhayoufi_store" />
             <ProjectCard title="Inventory Management System" year="2024"
               description="A comprehensive inventory management system with real-time stock tracking, authentication, and cloud storage. Built with modern React tooling and Firebase backend services."
               stack={["React","Vite","Firebase","Firestore","Auth"]}
-              gradient="linear-gradient(135deg,#10b981,#059669)"
+              gradient="linear-gradient(135deg,#60a5fa,#3b82f6)"
               demoUrl="https://inventory-management-system-mocha-phi.vercel.app/"
               githubUrl="https://github.com/DHIF24/Inventory-Management-System" />
           </motion.div>
@@ -848,7 +848,7 @@ function Contact() {
       <div style={{position:"absolute",top:"50%",left:"50%",
         transform:"translate(-50%,-50%)",width:"700px",height:"700px",
         borderRadius:"50%",pointerEvents:"none",
-        background:"radial-gradient(circle,rgba(108,63,255,0.07),rgba(255,94,170,0.05) 50%,transparent 70%)"}} />
+        background:"radial-gradient(circle,rgba(37,99,235,0.06),rgba(59,130,246,0.04) 50%,transparent 70%)"}} />
       <motion.div ref={ref} variants={stagger} initial="hidden" animate={inView?"visible":"hidden"}
         style={{position:"relative",zIndex:1,maxWidth:"800px",margin:"0 auto"}}>
         <SectionLabel text="Get In Touch" />
@@ -895,7 +895,7 @@ function Footer() {
     return () => window.removeEventListener('resize', check);
   }, []);
   return (
-    <footer style={{background:"var(--bg)",borderTop:"1px solid rgba(108,63,255,0.1)",
+    <footer style={{background:"var(--bg)",borderTop:"1px solid rgba(0,0,0,0.08)",
       padding:isMobile ? "24px 20px" : "32px 48px",display:"flex",
       flexDirection:isMobile ? "column" : "row",
       justifyContent:"space-between",
@@ -925,15 +925,15 @@ function MobileMenu() {
           display:"none",
           position:"fixed", top:"14px", right:"16px", zIndex:101,
           width:"44px", height:"44px", borderRadius:"12px",
-          border:"1.5px solid rgba(108,63,255,0.2)",
-          background:"rgba(247,245,255,0.95)",
+          border:"1.5px solid rgba(37,99,235,0.2)",
+          background:"rgba(255,255,255,0.95)",
           backdropFilter:"blur(12px)",
           alignItems:"center", justifyContent:"center",
           cursor:"pointer",
         }}
         className="mobile-menu-btn"
       >
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6c3fff" strokeWidth="2.2" strokeLinecap="round">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="2.2" strokeLinecap="round">
           <motion.line x1="3" y1="6" x2="21" y2="6" animate={{rotate: open ? 45 : 0, y: open ? 0 : 0}} />
           <motion.line x1="3" y1="12" x2="21" y2="12" animate={{opacity: open ? 0 : 1}} />
           <motion.line x1="3" y1="18" x2="21" y2="18" animate={{rotate: open ? -45 : 0, y: open ? 0 : 0}} />
@@ -948,7 +948,7 @@ function MobileMenu() {
             transition={{type:"spring", damping:25, stiffness:200}}
             style={{
               position:"fixed", inset:0, zIndex:100,
-              background:"rgba(247,245,255,0.98)",
+              background:"rgba(255,255,255,0.98)",
               backdropFilter:"blur(20px)",
               display:"flex", flexDirection:"column",
               alignItems:"center", justifyContent:"center", gap:"28px",
