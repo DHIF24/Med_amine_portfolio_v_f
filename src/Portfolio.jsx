@@ -176,16 +176,17 @@ function StatCard({ number, suffix, label, idx }) {
 function SkillPill({ label, color=0 }) {
   const [bg, fg] = PILL_COLORS[color % PILL_COLORS.length];
   return (
-    <motion.span variants={scaleIn} whileHover={{scale:1.1,y:-3}}
+    <motion.span variants={scaleIn} whileHover={{scale:1.08,y:-4,boxShadow:"0 8px 24px rgba(37,99,235,0.2)"}}
       transition={{type:"spring",stiffness:320}}
       style={{
-        display:"inline-flex", alignItems:"center", gap:"7px",
-        padding:"8px 18px", borderRadius:"50px",
-        border:`1.5px solid ${fg}33`, background:bg, color:fg,
-        fontFamily:"DM Mono,monospace", fontSize:"13px", fontWeight:500,
+        display:"inline-flex", alignItems:"center", gap:"8px",
+        padding:"10px 20px", borderRadius:"50px",
+        border:`1.5px solid ${fg}40`, background:bg, color:fg,
+        fontFamily:"DM Mono,monospace", fontSize:"14px", fontWeight:500,
         letterSpacing:"0.04em", cursor:"default", whiteSpace:"nowrap",
+        boxShadow:"0 2px 8px rgba(0,0,0,0.04)",
       }}>
-      <span style={{width:7,height:7,borderRadius:"50%",background:fg,display:"inline-block",flexShrink:0}} />
+      <span style={{width:8,height:8,borderRadius:"50%",background:fg,display:"inline-block",flexShrink:0}} />
       {label}
     </motion.span>
   );
@@ -679,21 +680,27 @@ function Skills() {
         <motion.div ref={ref} variants={stagger} initial="hidden" animate={inView?"visible":"hidden"}>
           <SectionLabel text="What I Know" />
           <SectionTitle>Skills</SectionTitle>
-          <div style={{display:"flex",flexDirection:"column",gap:"36px",marginBottom:"64px"}}>
+          <div style={{display:"flex",flexDirection:"column",gap:"44px",marginBottom:"72px"}}>
             {SKILL_GROUPS.map(g=>(
-              <motion.div key={g.group} variants={fadeUp}>
-                <p style={{fontFamily:"DM Mono,monospace",fontSize:"11px",letterSpacing:"0.2em",
-                  color:"var(--text-muted)",textTransform:"uppercase",marginBottom:"14px"}}>{g.group}</p>
+              <motion.div key={g.group} variants={fadeUp} style={{
+                background:"#fff",border:"1.5px solid rgba(0,0,0,0.08)",borderRadius:"24px",
+                padding:"28px 32px",boxShadow:"0 4px 24px rgba(0,0,0,0.04)"
+              }}>
+                <p style={{fontFamily:"DM Mono,monospace",fontSize:"12px",letterSpacing:"0.15em",
+                  color:"var(--text-muted)",textTransform:"uppercase",marginBottom:"18px",fontWeight:600}}>{g.group}</p>
                 <motion.div variants={stagger} initial="hidden" animate={inView?"visible":"hidden"}
-                  style={{display:"flex",flexWrap:"wrap",gap:"10px"}}>
+                  style={{display:"flex",flexWrap:"wrap",gap:"12px"}}>
                   {g.skills.map((s,si)=><SkillPill key={s} label={s} color={(g.ci+si)%4} />)}
                 </motion.div>
               </motion.div>
             ))}
           </div>
-          <motion.div variants={fadeUp}>
-            <p style={{fontFamily:"DM Mono,monospace",fontSize:"11px",letterSpacing:"0.2em",
-              color:"var(--text-muted)",textTransform:"uppercase",marginBottom:"20px"}}>All Technologies</p>
+          <motion.div variants={fadeUp} style={{
+            background:"#fff",border:"1.5px solid rgba(0,0,0,0.08)",borderRadius:"24px",
+            padding:"28px 32px",boxShadow:"0 4px 24px rgba(0,0,0,0.04)"
+          }}>
+            <p style={{fontFamily:"DM Mono,monospace",fontSize:"12px",letterSpacing:"0.15em",
+              color:"var(--text-muted)",textTransform:"uppercase",marginBottom:"24px",fontWeight:600}}>All Technologies</p>
             <SkillsCarousel />
           </motion.div>
         </motion.div>
